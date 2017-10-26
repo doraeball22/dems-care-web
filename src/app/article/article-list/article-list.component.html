@@ -1,0 +1,32 @@
+<h2>บทความ</h2>
+<!-- <p>บทความขอ</p> -->
+<a class="waves-effect waves-light btn pulse" routerLink="new">
+  <i class="material-icons left">add</i>เพิ่มบทความใหม่</a>
+
+<div class="row">
+  <div *ngFor="let article of articles">
+    <div class="col s12 m4">
+      <a [routerLink]="['/articles', article._id]">
+        <div class="card hoverable">
+          <div class="card-image medium">
+            <img src="{{ article.imageUrl }}">
+            <span class="card-title">{{ article.title | slice:0:45 }}</span>
+            <a class="btn-floating halfway-fab waves-effect waves-light teal lighten-2" [routerLink]="['/articles', article._id, 'edit']">
+              <i class="material-icons">edit</i>
+            </a>
+          </div>
+          <div class="card-content">
+            <p>ผู้แต่ง: {{ article.author  | slice:0:50 }}</p>
+          </div>
+          <div class="card-action">
+              <a class="btn-floating waves-effect waves-light red" (click)="onDeleteArticle(article)">
+                <i class="material-icons">delete</i>
+              </a>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+
+

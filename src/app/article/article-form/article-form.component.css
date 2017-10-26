@@ -1,0 +1,8 @@
+  /* valid color */
+  .input-field input[type=text].valid {
+    border-bottom: 1px solid #42A948;
+  }
+  /* invalid color */
+  .input-field input[type=text].invalid {
+    border-bottom: 1px solid #a94442;
+  }
