@@ -4,30 +4,30 @@ import { ActivatedRoute, Router } from '@angular/router';
 // import 'rxjs/Rx';
 import { Observable } from 'rxjs/Observable';
 
-import { ArticleService } from '../shared/article.service';
-import { Article } from '../shared/article';
+import { BookService } from '../shared/book.service';
+import { Book } from '../shared/book';
 
 @Component({
-  selector: 'app-article-form',
-  templateUrl: './article-form.component.html',
-  styleUrls: ['./article-form.component.css']
+  selector: 'app-book-form',
+  templateUrl: './book-form.component.html',
+  styleUrls: ['./book-form.component.css']
 })
-export class ArticleFormComponent implements OnInit {
+export class BookFormComponent implements OnInit {
 
   form: FormGroup;
   formType: 'new' | 'edit';
   submitBtnTxt: 'Create' | 'Update';  
-  article: Article;
+  book: Book;
 
   constructor(private formBuilder: FormBuilder,
               private route: ActivatedRoute,
               private router: Router,
-              private articleService: ArticleService) { }
+              private bookService: BookService) { }
 
   ngOnInit() {
     this.setFormType();
     this.buidForm();
-    this.getThisArticle();
+    this.getThisBook();
     this.setSubmitBtnTxt();
 
     this.form
@@ -76,16 +76,16 @@ export class ArticleFormComponent implements OnInit {
 
   private validationMessages = {
     title: {
-      required: "ตั้งชื่อบทความของคุณ"
+      required: "ตั้งชื่อหนังสือของคุณ"
     },
     bodyUrl: {
-      required: "ใส่ลิ้ง url เนื้อหาของบทความ สามารถใส่ลิ้งของเว็บใด หรือเป็นลิ้ง pdf ก็ได้"
+      required: "ใส่ลิ้ง url เนื้อหาของหนังสือ สามารถใส่ลิ้งของเว็บใด หรือเป็นลิ้ง pdf ก็ได้"
     },
     imageUrl: {
-      required: "ใส่ลิ้ง url รูปภาพประกอบบทความ"
+      required: "ใส่ลิ้ง url รูปภาพประกอบหนังสือ"
     },
     author: {
-      required: "ใส่ชื่อผู้แต่งบทความที่คุณนำมา"
+      required: "ใส่ชื่อผู้แต่งหนังสือที่คุณนำมา"
     }
   }
 
@@ -93,7 +93,7 @@ export class ArticleFormComponent implements OnInit {
     event.preventDefault();
     // console.log(this.form.value);
     // console.log(this.form.get('body'));
-    this.formType === 'new'? this.createArticle() : this.updateArticle();
+    this.formType === 'new'? this.createBook() : this.updateBook();
   }
 
   private setFormType() {
@@ -104,27 +104,27 @@ export class ArticleFormComponent implements OnInit {
     this.submitBtnTxt = this.formType === 'new'? 'Create' : 'Update';
   }
 
-  private createArticle() {
-    this.articleService
-      .createArticle(this.form.value)
-      .subscribe(({ _id }: Article) => this.router.navigate(['/articles']));
+  private createBook() {
+    this.bookService
+      .createBook(this.form.value)
+      .subscribe(({ _id }: Book) => this.router.navigate(['/books']));
   }
 
-  private updateArticle() {
+  private updateBook() {
     const { id } = this.route.snapshot.params;
-    this.articleService
-      .updateArticle(id, this.form.value)
-      .subscribe(({ _id }: Article) => this.router.navigate(['/articles']));
+    this.bookService
+      .updateBook(id, this.form.value)
+      .subscribe(({ _id }: Book) => this.router.navigate(['/books']));
   }
 
-  private getThisArticle() {
+  private getThisBook() {
     if(this.formType === 'new') return;
 
     const { id } = this.route.snapshot.params;
 
-    this.articleService
-    .getOneArticle(id)
-    .subscribe(({ _id, title, bodyUrl, author, imageUrl }: Article) => {
+    this.bookService
+    .getOneBook(id)
+    .subscribe(({ _id, title, bodyUrl, author, imageUrl }: Book) => {
       this.form.setValue({ title, bodyUrl, author, imageUrl });
     });
   }

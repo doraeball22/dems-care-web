@@ -1,1 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
+.card .card-title {
+    background-color: rgb(38, 50 , 56, 0.5);
+    width:100%
+}

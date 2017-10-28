@@ -1,7 +1,8 @@
-
+<!-- Navbar -->
 <nav class="nav-extended">
   <div class="nav-wrapper">
-    <a routerLink="" class="brand-logo center">DEMs care</a>
+    <!-- <a routerLink="" class="brand-logo">DEMs care</a> -->
+    <a routerLink="" class="brand-logo"><img class="logo" src="../assets/dems-care/ic_logo_dems-care.png" alt=""></a>
     <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
     <ul class="right hide-on-med-and-down">
       <li><a routerLink="">หน้าแรก</a></li>
@@ -23,14 +24,17 @@
   <div class="nav-content">
     <ul class="tabs tabs-transparent">
       <li class="tab"><a routerLink="articles">บทความ</a></li>
-      <li class="tab"><a class="active" routerLink="videos">วิดีโอ</a></li>
+      <li class="tab"><a routerLink="videos">วิดีโอ</a></li>
       <li class="tab"><a routerLink="books">หนังสือ</a></li>
       <li class="tab"><a routerLink="quizs">แบบทดสอบ</a></li>
     </ul>
   </div>
 </nav>
+<!-- End Navbar -->
 <div id="test1" class="col s12">
+  <!-- Content here -->
   <router-outlet></router-outlet>
+  <!-- END Content -->
 </div>
 
 <div class="fixed-action-btn verticle">
@@ -46,6 +50,37 @@
       <li><a class="btn-floating green"><i class="material-icons" (click)="goBack()">arrow_back</i></a></li>          
     </ul>
 </div>
+
+
+
+<!-- Footer -->
+<footer class="page-footer">
+  <div class="container">
+    <div class="row">
+      <div class="col l6 s12">
+        <h5 class="white-text">Footer Content</h5>
+        <p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p>
+      </div>
+      <div class="col l4 offset-l2 s12">
+        <h5 class="white-text">Links</h5>
+        <ul>
+          <li><a class="grey-text text-lighten-3" href="#!">หน้าแรก</a></li>
+          <li><a class="grey-text text-lighten-3" href="#!">บทความ</a></li>
+          <li><a class="grey-text text-lighten-3" href="#!">วิดีโอ</a></li>
+          <li><a class="grey-text text-lighten-3" href="#!">หนังสือ</a></li>
+          <li><a class="grey-text text-lighten-3" href="#!">แบบทดสอบ</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="footer-copyright">
+    <div class="container">
+    © 2017 Copyright Dems-care
+    <a class="grey-text text-lighten-4 right" href="#!">Facebook</a>
+    </div>
+  </div>
+</footer>
+<!-- End Footer -->
 
 
 

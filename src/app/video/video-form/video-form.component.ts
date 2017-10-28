@@ -4,30 +4,30 @@ import { ActivatedRoute, Router } from '@angular/router';
 // import 'rxjs/Rx';
 import { Observable } from 'rxjs/Observable';
 
-import { ArticleService } from '../shared/article.service';
-import { Article } from '../shared/article';
+import { VideoService } from '../shared/video.service';
+import { Video } from '../shared/video';
 
 @Component({
-  selector: 'app-article-form',
-  templateUrl: './article-form.component.html',
-  styleUrls: ['./article-form.component.css']
+  selector: 'app-video-form',
+  templateUrl: './video-form.component.html',
+  styleUrls: ['./video-form.component.css']
 })
-export class ArticleFormComponent implements OnInit {
+export class VideoFormComponent implements OnInit {
 
   form: FormGroup;
   formType: 'new' | 'edit';
   submitBtnTxt: 'Create' | 'Update';  
-  article: Article;
+  video: Video;
 
   constructor(private formBuilder: FormBuilder,
               private route: ActivatedRoute,
               private router: Router,
-              private articleService: ArticleService) { }
+              private videoService: VideoService) { }
 
   ngOnInit() {
     this.setFormType();
     this.buidForm();
-    this.getThisArticle();
+    this.getThisVideo();
     this.setSubmitBtnTxt();
 
     this.form
@@ -76,16 +76,16 @@ export class ArticleFormComponent implements OnInit {
 
   private validationMessages = {
     title: {
-      required: "ตั้งชื่อบทความของคุณ"
+      required: "ตั้งชื่อวิดีโอของคุณ"
     },
     bodyUrl: {
-      required: "ใส่ลิ้ง url เนื้อหาของบทความ สามารถใส่ลิ้งของเว็บใด หรือเป็นลิ้ง pdf ก็ได้"
+      required: "ใส่ลิ้ง url เนื้อหาของวิดีโอ สามารถใส่ลิ้งของเว็บใด หรือเป็นลิ้ง pdf ก็ได้"
     },
     imageUrl: {
-      required: "ใส่ลิ้ง url รูปภาพประกอบบทความ"
+      required: "ใส่ลิ้ง url รูปภาพประกอบวิดีโอ"
     },
     author: {
-      required: "ใส่ชื่อผู้แต่งบทความที่คุณนำมา"
+      required: "ใส่ชื่อผู้แต่งวิดีโอที่คุณนำมา"
     }
   }
 
@@ -93,7 +93,7 @@ export class ArticleFormComponent implements OnInit {
     event.preventDefault();
     // console.log(this.form.value);
     // console.log(this.form.get('body'));
-    this.formType === 'new'? this.createArticle() : this.updateArticle();
+    this.formType === 'new'? this.createVideo() : this.updateVideo();
   }
 
   private setFormType() {
@@ -104,27 +104,27 @@ export class ArticleFormComponent implements OnInit {
     this.submitBtnTxt = this.formType === 'new'? 'Create' : 'Update';
   }
 
-  private createArticle() {
-    this.articleService
-      .createArticle(this.form.value)
-      .subscribe(({ _id }: Article) => this.router.navigate(['/articles']));
+  private createVideo() {
+    this.videoService
+      .createVideo(this.form.value)
+      .subscribe(({ _id }: Video) => this.router.navigate(['/videos']));
   }
 
-  private updateArticle() {
+  private updateVideo() {
     const { id } = this.route.snapshot.params;
-    this.articleService
-      .updateArticle(id, this.form.value)
-      .subscribe(({ _id }: Article) => this.router.navigate(['/articles']));
+    this.videoService
+      .updateVideo(id, this.form.value)
+      .subscribe(({ _id }: Video) => this.router.navigate(['/videos']));
   }
 
-  private getThisArticle() {
+  private getThisVideo() {
     if(this.formType === 'new') return;
 
     const { id } = this.route.snapshot.params;
 
-    this.articleService
-    .getOneArticle(id)
-    .subscribe(({ _id, title, bodyUrl, author, imageUrl }: Article) => {
+    this.videoService
+    .getOneVideo(id)
+    .subscribe(({ _id, title, bodyUrl, author, imageUrl }: Video) => {
       this.form.setValue({ title, bodyUrl, author, imageUrl });
     });
   }
